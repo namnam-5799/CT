@@ -2,37 +2,32 @@
 import sys
 input = sys.stdin.readline
 
-n = int(input())
-nums = sorted(list(map(int,input().split())))
+N = int(input())
+Result = 0
+A = sorted(list(map(int, input().split())))
 
-now = 1 # nowf로 1부터 하나씩 증가시킬 예정
-num1 = 0 # 앞에서부터
-num2 = 0 # 뒤에서부터
-count = 0
+for k in range(N): # For문을 통해 배열을 순회하며 배열 전체를 검사.
+    find = A[k] # 찾아야 할 값은 배열의 k번째 값
+    num1 = int(0) # 시작 인덱스는 0
+    num2 = int(N - 1) # 종료 인덱스는 전체 길이 -1
 
-while now != n+1:
-    print('-----현재 now의 값은----',now)
-    sum = nums[num1] + nums[num2]
-    print('현재 sum의 값',sum , '앞',nums[num1],'뒤',nums[num2])
+    while num1 < num2: # 두개의 포인터가 같아지는 시점에서 종료
+        if A[num1] + A[num2] == find:  # find는 서로 다른 두 수의 합 이어야 함을 체크
+            if num1 != k and num2 != k: # 같은 조건에서 앞, 뒤 포인터값과 합 자체가 같으면 안됨,
+                Result += 1
+                break
 
-    # 처음 인덱스나 마지막 인덱스가 now와 같아지면 수가 없다고 판단, 다음now로 넘긴다.
-    if (now == nums[num1] or now == nums[num2]) and (nums[num1]!=0 and nums[num2]!=0) :
-        print('수가 중복입니다. 다음 now를 검색합니다. ')
-        now+=1
-        continue
+            # 둘 중 하나의 값과 겹치는 경우에는 (예: 구할 값이 3인데 현재 1,3인 경우 앞으로 당겨야한다.)
+            # 다른 가능한 조합을 찾아야하므로 포인터를 조절
+            elif num1 == k:
+                num1 += 1
+            elif num2 == k:
+                num2 -= 1
 
-    if now == sum and nums[num1]!= nums[num2]: # 좋은수이면
-        print('좋은 수 이므로 다음수를 검사 now증가')
-        count += 1 # 카운트 증가
-        now += 1 # 다음 수를 검사
-
-    elif sum > now: # 합친 값이 now보다 크다면
-        print('앞 인덱스로 이동')
-        num1 +=1 # 한칸 이전의 수를 검색
-
-    else: # 합친 값이 now보다 작다면
-        print('뒤 인덱스로 이동')
-        num2 += 1 # 한칸 이후의 수를 검색
-
-
-print(count)
+        # 합한 결과보다 구해야 할 값이 작은 경우
+        # 앞 포인터를 이동시켜 값을 키운다.
+        elif A[num1] + A[num2] < find:
+            num1 += 1
+        else:
+            num2 -= 1
+print(Result)
