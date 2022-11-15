@@ -14,5 +14,5 @@ while len(cards)> 1:
     cards.popleft()
     # 맨 앞의 카드를 맨뒤에 붙인다
     cards.append(cards.popleft())
-    print(cards)
+
 print(cards[0])
