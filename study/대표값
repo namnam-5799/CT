@@ -1,0 +1,27 @@
+# 대표값
+
+n = int(input())
+score = list(map(int,input().split()))
+avg = round(sum(score)/n,0)
+
+min = 100
+for idx,i in enumerate(score):
+    temp = abs(avg-i)
+    if min > temp: #오차값이 더 작으면
+        res = idx+1
+        min = temp
+        sco = i
+    elif min == temp:
+        if i>sco:
+            sco = i
+            res = idx+1
+
+print(int(avg), res)
+
+
+
+
+
+
+
+# print(int(avg), min_index+1)
