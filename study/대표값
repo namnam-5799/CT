@@ -18,10 +18,3 @@ for idx,i in enumerate(score):
 
 print(int(avg), res)
 
-
-
-
-
-
-
-# print(int(avg), min_index+1)
